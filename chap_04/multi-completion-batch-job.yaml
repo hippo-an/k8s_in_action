@@ -1,0 +1,18 @@
+apiVersion: batch/b1
+kind: Job
+metadata:
+  name: multi-completion-batch-job
+spec:
+  completion: 5  # 5번의 연속된 수행
+  parallelism: 2  # 병렬 실행 갯수
+  backoffLimit: 5  # 백오프 카운트 제한
+  activeDeadlineSeconds: 100  # job 실행 deadline
+  template:
+    metadata:
+      labels:
+        app: batch0-job
+    spec:
+      restartPolicy: OnFailure  # job ㅠㅏ드는 무한정 실행하지 않으므로 기본정책을 사용할 수 없어 명시적으로 설정 필요
+      containers:
+        - name: main
+          image: luksa/batch-job

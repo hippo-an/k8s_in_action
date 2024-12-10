@@ -1,0 +1,14 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: batch-job
+spec:
+  template:
+    metadata:
+      labels:
+        app: batch0-job
+    spec:
+      restartPolicy: OnFailure  # job ㅠㅏ드는 무한정 실행하지 않으므로 기본정책을 사용할 수 없어 명시적으로 설정 필요
+      containers:
+        - name: main
+          image: luksa/batch-job
